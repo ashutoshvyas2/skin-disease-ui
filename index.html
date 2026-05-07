@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dermatologist Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-blue-50 font-sans p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-gray-800">AI Dermatologist Assistant</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+                    <h2 class="text-lg font-semibold mb-4 text-gray-700">Input & Classification</h2>
+                    <input type="text" id="symptom-input" placeholder="Describe symptoms (e.g., itchy, spreading, dark color...)" 
+                           class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none">
+                    
+                    <div id="drop-zone" class="border-2 border-dashed border-blue-200 rounded-xl p-8 text-center bg-blue-50/30 flex items-center justify-between cursor-pointer transition-all hover:bg-blue-50">
+                        <div class="flex items-center space-x-4 text-left">
+                            <div class="bg-blue-100 p-4 rounded-full text-blue-600">
+                                <i class="fas fa-cloud-upload-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <p id="drop-text" class="text-gray-500 text-sm font-medium">Drag & Drop Image or Click to Upload</p>
+                                <p class="text-gray-400 text-xs">Recommended for high-res analysis</p>
+                            </div>
+                        </div>
+                        <input type="file" id="file-input" class="hidden" accept="image/*">
+                        <button id="scan-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg shrink-0">START LIVE SCAN</button>
+                    </div>
+                </div>
+
+                <div class="text-center font-bold text-gray-300 uppercase text-xs tracking-widest">OR</div>
+
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+                    <h2 class="text-sm font-semibold mb-2 text-gray-500 text-center uppercase">Live Camera Feed</h2>
+                    <div id="video-container" class="bg-slate-900 aspect-video rounded-lg flex items-center justify-center relative overflow-hidden">
+                        <div id="scan-line" class="scanning-line"></div>
+                        <p id="camera-placeholder" class="text-slate-500 text-sm italic">Camera feed inactive...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-100 min-h-[250px] result-card">
+                    <h2 class="text-lg font-semibold mb-4 text-gray-700">Analysis Results</h2>
+                    <div id="results-placeholder" class="py-10 text-center text-gray-400">
+                        <i class="fas fa-microscope text-4xl mb-3 opacity-20"></i>
+                        <p>Complete a scan to see results</p>
+                    </div>
+                    
+                    <div id="real-results" class="hidden animate-fade-in">
+                        <p class="text-gray-500">Predicted condition:</p>
+                        <h3 class="text-2xl font-bold text-red-600">Melanoma</h3>
+                        <p class="text-sm text-gray-400 font-medium">98.7% Confidence Level</p>
+                        
+                        <div class="space-y-2 border-t mt-6 pt-4">
+                            <p class="text-xs font-bold text-gray-400 uppercase">Observations</p>
+                            <ul id="observation-list" class="text-gray-600 text-sm list-disc list-inside space-y-1">
+                                <li>Asymmetry detected in lesion borders</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="specialist-section" class="bg-white p-6 rounded-xl shadow-sm border border-blue-100 hidden animate-fade-in">
+                    <h2 class="text-lg font-semibold mb-2 text-gray-700">Recommended Specialists</h2>
+                    <p id="location-tag" class="text-[10px] text-blue-500 font-bold mb-4 uppercase tracking-tighter">📍 Detecting nearby clinics...</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="specialist-card p-3 border rounded-lg flex flex-col items-center text-center">
+                            <img src="https://i.pravatar.cc/150?u=12" class="w-10 h-10 rounded-full mb-2 grayscale">
+                            <p class="text-[10px] font-bold">Dr. Arya Sharma</p>
+                            <p class="text-[8px] text-gray-400">Oncology Specialist</p>
+                        </div>
+                        <div class="specialist-card p-3 border rounded-lg flex flex-col items-center text-center">
+                            <img src="https://i.pravatar.cc/150?u=24" class="w-10 h-10 rounded-full mb-2 grayscale">
+                            <p class="text-[10px] font-bold">Dr. Jian Li</p>
+                            <p class="text-[8px] text-gray-400">Kolkata Skin Clinic</p>
+                        </div>
+                        <div class="specialist-card p-3 border rounded-lg flex flex-col items-center text-center">
+                            <img src="https://i.pravatar.cc/150?u=36" class="w-10 h-10 rounded-full mb-2 grayscale">
+                            <p class="text-[10px] font-bold">Dr. David Chen</p>
+                            <p class="text-[8px] text-gray-400">Dermato-Surgeon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
