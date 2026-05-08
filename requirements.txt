@@ -1,5 +1,5 @@
 flask
 flask-cors
-tensorflow
+tensorflow==2.15.0
 numpy
 opencv-python-headless
