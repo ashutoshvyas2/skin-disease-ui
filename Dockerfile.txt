@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY . .
+
+RUN pip install flask flask-cors tensorflow-cpu numpy opencv-python-headless
+
+EXPOSE 7860
+
+CMD ["python", "app.py"]
