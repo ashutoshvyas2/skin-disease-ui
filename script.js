@@ -51,7 +51,7 @@ async function startCamera() {
 }
 
 function stopCamera() {
-    captureAndAnalyze(); // Capture the frame before turning off the camera
+    captureAndAnalyze();
 
     if (currentStream) {
         currentStream.getTracks().forEach(track => track.stop());
@@ -65,10 +65,9 @@ function stopCamera() {
     scanBtn.classList.replace('bg-red-600', 'bg-blue-600');
 }
 
-// --- 2. BACKEND COMMUNICATION (FIXED FOR UNDEFINED ERROR) ---
+// --- 2. BACKEND COMMUNICATION ---
 
 async function sendToModel(imageBlob) {
-    // Show "Processing" state immediately
     resultsPlaceholder.classList.add('hidden');
     realResults.classList.remove('hidden');
     document.querySelector('h3.text-red-600').innerText = "Analyzing...";
@@ -78,7 +77,7 @@ async function sendToModel(imageBlob) {
     formData.append('image', imageBlob, 'capture.jpg');
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/predict', {
+        const response = await fetch('https://ashzz1-dermascan.hf.space/predict', {
             method: 'POST',
             body: formData
         });
@@ -87,7 +86,6 @@ async function sendToModel(imageBlob) {
 
         const data = await response.json();
         
-        // --- THE FIX: Handle empty or undefined data ---
         if (data.status === "success" && data.condition) {
             updateUIWithResults(data);
         } else {
@@ -102,11 +100,9 @@ async function sendToModel(imageBlob) {
 }
 
 function updateUIWithResults(data) {
-    // Set Condition and Confidence
     document.querySelector('h3.text-red-600').innerText = data.condition;
     document.querySelector('.text-gray-400.font-medium').innerText = `${data.confidence} Confidence Level`;
     
-    // Reveal Specialist Section
     specialistSection.classList.remove('hidden');
     const locs = ["Howrah, WB", "Salt Lake, Sector V", "Kolkata Central"];
     locationTag.innerText = `📍 Recommended Specialists Near: ${locs[Math.floor(Math.random()*locs.length)]}`;
